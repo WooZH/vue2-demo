@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta content=yes name=apple-mobile-web-app-capable><meta content=yes name=apple-touch-fullscreen><meta content="fullscreen=yes,preventMove=no" name=ML-Config><meta name=author content=zh.wang><meta name=copyright content="2011-2016 © All Rights Reserved. wangzhiheng703@gmail.com"><meta name=description content=""><meta name=keywords content=""><script src=http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js></script><script src=http://res.wx.qq.com/open/js/jweixin-1.0.0.js></script><title>vue2-webpack-template</title><link href=/static/css/app.01d3169d8c2f5d5b010f41f027e9be48.css rel=stylesheet></head><body><div id=app></div><script src=/static/js/libs/zepto.min.js></script><script src=/static/js/libs/underscore-min.js></script><script type=text/javascript>//      $(window).on("load", function () {
+//        getWxConfig();
+//
+//      });
+
+      window.shareInfoWx = {
+        'name': "微信分享标题",
+        'desc': "微信分享标题",
+        'image': "http://wx.share.com/share.png"
+      };
+      var loc = window.location.href;
+
+//      微信分享配置
+      var getWxConfig = function () {
+        var url = loc.split('#')[0];
+        $.ajax({
+          url: 'http://dface.cn/wxjs?Access-Control-Allow-Origin=1',
+          type: 'GET',
+          data: {
+            url: url
+          },
+          success: function (data) {
+            console.log('wx.config:');
+            console.info(data);
+            wx.config({
+              debug: false,
+              appId: 'wx3f44f37038103ff2',
+              timestamp: data.timestamp,
+              nonceStr: data.noncestr,
+              signature: data.signature,
+              jsApiList: [
+//                            朋友圈
+                'onMenuShareTimeline',
+//                            分享给朋友
+                'onMenuShareAppMessage'
+              ]
+            });
+          },
+          error: function (data) {
+            console.log("error");
+          }
+        })
+      };
+
+      wx.ready(function () {
+// 2. 分享接口
+// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareAppMessage({
+          title: window.shareInfoWx.name,
+          desc: window.shareInfoWx.desc,
+          link: window.location.href,
+          imgUrl: window.shareInfoWx.image,
+          fail: function (res) {
+          },
+          success: function (res) {
+          }
+        });
+// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareTimeline({
+          title: window.shareInfoWx.name,
+          link: window.location.href,
+          imgUrl: window.shareInfoWx.image,
+          fail: function (res) {
+          },
+          success: function (res) {
+          }
+        });
+      });
+
+      wx.error(function (res) {
+        console.log('wx.error: ' + res.errMsg);
+      });</script><script type=text/javascript src=/static/js/manifest.e1c149bb78ebb173c251.js></script><script type=text/javascript src=/static/js/vendor.c53fe9dbdfd251bd5e24.js></script><script type=text/javascript src=/static/js/app.ac8f95f739bf845955bc.js></script></body></html>

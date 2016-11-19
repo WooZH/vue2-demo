@@ -1,0 +1,22 @@
+@import "common";
+@import "index";
+
+$theme-color: #2aba88;
+
+#about{
+  padding-top: px2rem(135px);
+}
+
+.about{
+  margin-top: px2rem(100px);
+  text-align: center;
+  font-size: 14px;
+  line-height: 150%;
+
+  a{
+    color: $theme-color;
+  }
+  .author{
+    margin:px2rem(50px);
+  }
+}
